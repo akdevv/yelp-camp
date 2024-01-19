@@ -23,13 +23,17 @@ const seedDB = async () => {
     // create new campgrounds
     for (let i = 0; i < 50; i++) {
         const randNum = Math.floor(Math.random() * 1000);
+        const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
+            price,
             title: `${sample(descriptors)} ${sample(places)}`,
             location: `${cities[randNum].city}, ${cities[randNum].state}`,
+            image: 'https://source.unsplash.com/collection/483251',
+            description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum quisquam architecto tenetur saepe mollitia soluta itaque, quam quod adipisci magnam iusto, quasi illo et doloremque nostrum eos perspiciatis totam ab.'
         });
         await camp.save();
-    }
-}
+    };
+};
 
 seedDB()
     .then(() => {
