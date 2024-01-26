@@ -20,5 +20,19 @@
             </div>
             <div class="card-footer text-secondary">2 days ago</div>
         </div>
+
+        <!-- REVIEW FORM  -->
+        <h2>Leave a Review</h2>
+        <form action="">
+            <div class="mb-3">
+                <label class="from-label" for="rating">Rating</label>
+                <input class="form-range" type="range" min="1" max="5" id="rating" name="review[rating]">
+            </div>
+            <div class="mb-3">
+                <label class="from-label" for="body">Review</label>
+                <textarea rows="3" cols="30" id="body" name="review[body]" class="form-control"></textarea>
+            </div>
+            <button class="btn btn-success mb-3">Submit</button>
+        </form>
     </div>
 </div>
