@@ -97,6 +97,8 @@ app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
 }));
 
 // REVIEWS ROUTE
+
+// new review route
 app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     const review = new Review(req.body.review);
@@ -104,6 +106,14 @@ app.post('/campgrounds/:id/reviews', validateReview, catchAsync(async (req, res)
     await review.save();
     await campground.save();
     res.redirect(`/campgrounds/${campground.id}`);
+}));
+
+// delete review route
+app.delete('/campgrounds/:id/reviews/:reviewId', catchAsync(async (req, res) => {
+    const { id, reviewId } = req.params;
+    await Campground.findByIdAndUpdate(id, { $pull: { reviews: reviewId } });
+    await Review.findByIdAndDelete(reviewId);
+    res.redirect(`/campgrounds/${id}`);
 }));
 
 // 404 error
