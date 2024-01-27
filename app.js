@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
+const Review = require('./models/review');
 const catchAsync = require('./utils/catchAsync');
 const { campgroundSchema } = require('./schemas');
 const methodOverride = require('method-override');
@@ -62,31 +63,37 @@ app.post('/campgrounds', validateCampground, catchAsync(async (req, res, next) =
 
 // show route
 app.get('/campgrounds/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findById(id);
+    const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/show', { campground });
 }));
 
 
 // update route
 app.get('/campgrounds/:id/edit', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findById(id);
+    const campground = await Campground.findById(req.params.id);
     res.render('campgrounds/edit', { campground });
 }));
 
 app.put('/campgrounds/:id', validateCampground, catchAsync(async (req, res) => {
-    const { id } = req.params;
-    const campground = await Campground.findByIdAndUpdate(id, { ...req.body.campground });
+    const campground = await Campground.findByIdAndUpdate(req.params.id, { ...req.body.campground });
     res.redirect(`/campgrounds/${campground.id}`);
 }));
 
 
 // delete route
 app.delete('/campgrounds/:id', catchAsync(async (req, res) => {
-    const { id } = req.params;
-    await Campground.findByIdAndDelete(id);
+    await Campground.findByIdAndDelete(req.params.id);
     res.redirect('/campgrounds');
+}));
+
+// REVIEWS ROUTE
+app.post('/campgrounds/:id/reviews', catchAsync(async (req, res) => {
+    const campground = await Campground.findById(req.params.id);
+    const review = new Review(req.body.review);
+    campground.reviews.push(review);
+    await review.save();
+    await campground.save();
+    res.redirect(`/campgrounds/${campground.id}`);
 }));
 
 // 404 error
