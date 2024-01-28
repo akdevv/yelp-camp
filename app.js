@@ -11,8 +11,9 @@ const localStratergy = require('passport-local');
 const ExpressError = require('./utils/ExpressError');
 
 // import routes
-const campgroundRoutes = require('./routes/campgrounds');
+const userRoutes = require('./routes/user');
 const reviewRoutes = require('./routes/reviews');
+const campgroundRoutes = require('./routes/campgrounds');
 
 // import models
 const User = require('./models/user');
@@ -67,18 +68,13 @@ app.use((req, res, next) => {
 });
 
 // use routes
+app.use('/', userRoutes);
 app.use('/campgrounds', campgroundRoutes);
 app.use('/campgrounds/:id/reviews', reviewRoutes);
 
 // home route
 app.get('/', (req, res) => {
     res.render('home');
-});
-
-app.get('/fakeuser', async (req, res) => {
-    const user = new User({ email: 'ashish@gmail.com', username: 'ashish' });
-    const newUser = await User.register(user, 'rocket');
-    res.send(newUser);
 });
 
 // 404 error
