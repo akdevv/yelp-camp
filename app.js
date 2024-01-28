@@ -3,6 +3,7 @@ const path = require('path');
 const express = require('express');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
+const flash = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressError');
@@ -43,6 +44,14 @@ const sessionConfig = {
     }
 };
 app.use(session(sessionConfig));
+
+// flash configuration
+app.use(flash());
+app.use((req, res, next) => {
+    res.locals.error = req.flash('error');
+    res.locals.success = req.flash('success');
+    next();
+});
 
 // use routes
 app.use('/campgrounds', campgroundRoutes);
