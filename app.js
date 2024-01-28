@@ -6,8 +6,8 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
-const methodOverride = require('method-override');
 const localStratergy = require('passport-local');
+const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressError');
 
 // import routes

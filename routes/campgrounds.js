@@ -1,5 +1,6 @@
 // imports
 const express = require('express');
+const { isLoggedIn } = require('../middleware');
 const catchAsync = require('../utils/catchAsync');
 const { campgroundSchema } = require('../schemas');
 const Campground = require('../models/campground');
@@ -27,11 +28,11 @@ router.get('/', catchAsync(async (req, res) => {
 
 
 // new route
-router.get('/new', (req, res) => {
+router.get('/new', isLoggedIn, (req, res) => {
     res.render('campgrounds/new');
 });
 
-router.post('/', validateCampground, catchAsync(async (req, res, next) => {
+router.post('/', validateCampground, isLoggedIn, catchAsync(async (req, res, next) => {
     const campground = new Campground(req.body.campground);
     await campground.save();
     req.flash('success', 'Successfully made a new campground!');
@@ -51,7 +52,7 @@ router.get('/:id', catchAsync(async (req, res) => {
 
 
 // update route
-router.get('/:id/edit', catchAsync(async (req, res) => {
+router.get('/:id/edit', isLoggedIn, catchAsync(async (req, res) => {
     const campground = await Campground.findById(req.params.id);
     if (!campground) {
         req.flash('error', 'Campground not found!');
@@ -60,7 +61,7 @@ router.get('/:id/edit', catchAsync(async (req, res) => {
     res.render('campgrounds/edit', { campground });
 }));
 
-router.put('/:id', validateCampground, catchAsync(async (req, res) => {
+router.put('/:id', isLoggedIn, validateCampground, catchAsync(async (req, res) => {
     const campground = await Campground.findByIdAndUpdate(req.params.id, { ...req.body.campground });
     req.flash('success', 'Successfully updated campground!');
     res.redirect(`/campgrounds/${campground.id}`);
@@ -68,7 +69,7 @@ router.put('/:id', validateCampground, catchAsync(async (req, res) => {
 
 
 // delete route
-router.delete('/:id', catchAsync(async (req, res) => {
+router.delete('/:id', isLoggedIn, catchAsync(async (req, res) => {
     await Campground.findByIdAndDelete(req.params.id);
     req.flash('success', 'Successfully deleted campground!');
     res.redirect('/campgrounds');
