@@ -3,14 +3,19 @@ const path = require('path');
 const express = require('express');
 const ejsMate = require('ejs-mate');
 const mongoose = require('mongoose');
+const passport = require('passport');
 const flash = require('connect-flash');
 const session = require('express-session');
 const methodOverride = require('method-override');
+const localStratergy = require('passport-local');
 const ExpressError = require('./utils/ExpressError');
 
 // import routes
 const campgroundRoutes = require('./routes/campgrounds');
 const reviewRoutes = require('./routes/reviews');
+
+// import models
+const User = require('./models/user');
 
 // connect mongoose
 mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
@@ -45,6 +50,14 @@ const sessionConfig = {
 };
 app.use(session(sessionConfig));
 
+// passport configuration
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new localStratergy(User.authenticate()));
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
+
 // flash configuration
 app.use(flash());
 app.use((req, res, next) => {
@@ -60,6 +73,12 @@ app.use('/campgrounds/:id/reviews', reviewRoutes);
 // home route
 app.get('/', (req, res) => {
     res.render('home');
+});
+
+app.get('/fakeuser', async (req, res) => {
+    const user = new User({ email: 'ashish@gmail.com', username: 'ashish' });
+    const newUser = await User.register(user, 'rocket');
+    res.send(newUser);
 });
 
 // 404 error
