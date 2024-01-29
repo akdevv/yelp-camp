@@ -11,7 +11,7 @@ const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressError');
 
 // import routes
-const userRoutes = require('./routes/user');
+const userRoutes = require('./routes/users');
 const reviewRoutes = require('./routes/reviews');
 const campgroundRoutes = require('./routes/campgrounds');
 
