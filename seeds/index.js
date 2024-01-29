@@ -26,6 +26,7 @@ const seedDB = async () => {
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
             price,
+            author: '65b7ab41c7de673e96527639',
             title: `${sample(descriptors)} ${sample(places)}`,
             location: `${cities[randNum].city}, ${cities[randNum].state}`,
             image: 'https://source.unsplash.com/collection/483251',
@@ -41,4 +42,3 @@ seedDB()
         console.log('closing connection!');
         mongoose.connection.close();
     });
-
