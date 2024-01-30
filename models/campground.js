@@ -33,12 +33,20 @@ const CampgroundSchema = new Schema({
         type: Schema.Types.ObjectId,
         ref: 'Review'
     }]
-});
+}, { toJSON: { virtuals: true } });
 
+// thumbnail virtual property
 ImageSchema.virtual('thumbnail').get(function () {
     return this.url.replace('/upload', '/upload/w_200');
 });
 
+// popupHTML text virtual
+CampgroundSchema.virtual('properties.popupHTML').get(function () {
+    return `<strong><a href="/campgrounds/${this._id}">${this.title}</a></strong>
+    <p>${this.description.substring(0, 20)}...</p>`;
+});
+
+// delete campground middleware
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
     if (doc) await Review.deleteMany({ id: { $in: doc.reviews } });
 });
