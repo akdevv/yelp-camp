@@ -1,3 +1,8 @@
+// use dotenv in dev mode
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+};
+
 // imports
 const path = require('path');
 const express = require('express');
