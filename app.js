@@ -46,10 +46,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // session configuration
 const sessionConfig = {
+    name: 'session.id',
     secret: 'yelp-camp',
     resave: false,
     saveUninitialized: true,
     cookie: {
+        // secure: true, (un-comment in production site)
         httpOnly: true,
         // (1000 * 60 * 60 * 24 * 7) = one week
         maxAge: 1000 * 60 * 60 * 24 * 7,
