@@ -14,6 +14,7 @@ const session = require('express-session');
 const localStratergy = require('passport-local');
 const methodOverride = require('method-override');
 const ExpressError = require('./utils/ExpressError');
+const mongoSanitize = require('express-mongo-sanitize');
 
 // import routes
 const userRoutes = require('./routes/users');
@@ -35,6 +36,7 @@ mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
 
 // app setup
 const app = express();
+app.use(mongoSanitize());
 app.engine('ejs', ejsMate);
 app.set('view engine', 'ejs');
 app.use(methodOverride('_method'));
