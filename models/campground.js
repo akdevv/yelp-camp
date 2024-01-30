@@ -48,7 +48,7 @@ CampgroundSchema.virtual('properties.popupHTML').get(function () {
 
 // delete campground middleware
 CampgroundSchema.post('findOneAndDelete', async function (doc) {
-    if (doc) await Review.deleteMany({ id: { $in: doc.reviews } });
+    if (doc) await Review.deleteMany({ _id: { $in: doc.reviews } });
 });
 
 module.exports = mongoose.model('Campground', CampgroundSchema);
