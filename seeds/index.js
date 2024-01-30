@@ -1,3 +1,8 @@
+// use dotenv in dev mode
+if (process.env.NODE_ENV !== 'production') {
+    require('dotenv').config();
+};
+
 // imports
 const cities = require('./cities');
 const mongoose = require('mongoose');
@@ -5,7 +10,8 @@ const Campground = require('../models/campground');
 const { places, descriptors } = require('./seedHelper');
 
 // connect mongoose
-mongoose.connect('mongodb://127.0.0.1:27017/yelp-camp')
+const dbUrl = process.env.DB_URL;
+mongoose.connect(dbUrl)
     .then(() => {
         console.log('connection open!');
     })
@@ -26,7 +32,7 @@ const seedDB = async () => {
         const price = Math.floor(Math.random() * 20) + 10;
         const camp = new Campground({
             price,
-            author: '65b7ab41c7de673e96527639',
+            author: '65b92a11a3dc9316802b779b',
             title: `${sample(descriptors)} ${sample(places)}`,
             location: `${cities[randNum].city}, ${cities[randNum].state}`,
             description: 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptatum quisquam architecto tenetur saepe mollitia soluta itaque, quam quod adipisci magnam iusto, quasi illo et doloremque nostrum eos perspiciatis totam ab.',
