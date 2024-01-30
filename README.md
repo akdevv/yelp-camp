@@ -1,4 +1,4 @@
-# yelp-camp
+# Yelp Camp
 
 ## Overview
 
@@ -26,12 +26,34 @@ Yelp Camp is a full-stack website project that allows users to explore, create, 
 
 ## Technologies Used
 
-- **Frontend**: HTML, CSS, JavaScript, Bootstrap
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB Atlas
-- **Authentication**: Passport.js
-- **Template Engine**: EJS (Embedded JavaScript)
-- **Deployment**: Render
+### Frontend 
+
+![HTML5](https://img.shields.io/badge/HTML5-E34F26?style=for-the-badge&logo=html5&logoColor=white)
+![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)
+![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?style=for-the-badge&logo=javascript&logoColor=black)
+![Bootstrap](https://img.shields.io/badge/bootstrap-%238511FA.svg?style=for-the-badge&logo=bootstrap&logoColor=white)
+
+### Backend
+
+![NPM](https://img.shields.io/badge/NPM-%23CB3837.svg?style=for-the-badge&logo=npm&logoColor=white)
+![NodeJS](https://img.shields.io/badge/node.js-6DA55F?style=for-the-badge&logo=node.js&logoColor=white)
+![Express.js](https://img.shields.io/badge/express.js-%23404d59.svg?style=for-the-badge&logo=express&logoColor=%2361DAFB)
+
+### Database
+
+![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)
+
+### Authentication
+
+![Passport](https://img.shields.io/badge/Passport-34E27A?logo=passport&logoColor=000&style=for-the-badge)
+
+### Template Engine
+
+![EJS](https://img.shields.io/badge/EJS-B4CA65?style=for-the-badge&logo=ejs&logoColor=white)
+
+### Deployment
+
+![Render](https://img.shields.io/badge/Render-%46E3B7.svg?style=for-the-badge&logo=render&logoColor=white)
 
 ## Instructions
 
