@@ -3,9 +3,6 @@
 
 <div class="row">
     <div class="col-6">
-
-        <div id='map' style='width: 400px; height: 300px;'></div>
-
         <!-- images carousel -->
         <div id="campgroundCarousel" class="carousel slide">
             <div class="carousel-inner">
@@ -53,6 +50,9 @@
 
     <!-- REVIEW FORM  -->
     <div class="col-6">
+        <!-- mapbox map -->
+        <div id="map" class="mb-3"></div>
+
         <!-- make a new review -->
         <% if (currentUser) { %>
         <h2>Leave a Review</h2>
