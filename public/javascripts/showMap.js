@@ -7,7 +7,14 @@ const map = new mapboxgl.Map({
     zoom: 10 // starting zoom
 });
 
-// adding map pin
+// adding zoom and rotation controls to the map
+map.addControl(new mapboxgl.NavigationControl());
+
+// adding map pin and popup
 new mapboxgl.Marker({ color: 'red' })
     .setLngLat(campground.geometry.coordinates)
+    .setPopup(
+        new mapboxgl.Popup({ offset: 25 })
+            .setHTML(`<h5>${campground.title}</h5> <p>${campground.location}</p>`)
+    )
     .addTo(map);
